@@ -42,7 +42,7 @@ print model.output_shape
 
 # Linear classifier
 model.add(Dense(4, activation='softmax'))
-model.add(Dropout(0.015))
+model.add(Dropout(0.5))
 print model.output_shape
 
 model.compile(loss=keras.losses.categorical_crossentropy,
