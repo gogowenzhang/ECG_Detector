@@ -1,0 +1,17 @@
+.DS_Store
+
+#ipython notebooks
+*.ipynb
+
+*.pem
+
+# pkl
+*.pkl
+*.p
+*.pyc
+
+#raw data
+data/
+
+#doc
+doc/
