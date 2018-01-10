@@ -38,7 +38,7 @@ print('Build model...')
 model = Sequential()
 
 # Convolutional layer
-model = add_conv_blocks(model, 6, 4, initial_input_shape=(140, 33, 1))
+model = add_conv_blocks(model, 4, 6, initial_input_shape=(140, 33, 1))
 print model.output_shape
 
 # Feature aggregation across time
