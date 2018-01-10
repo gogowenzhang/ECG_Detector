@@ -30,7 +30,7 @@ y_test = y[ind_not_selected]
 
 # Hyperparameter
 batch_size = 20
-epochs = 100
+epochs = 1
 
 # Model CNN
 print('Build model...')
@@ -43,16 +43,13 @@ print model.output_shape
 
 # Feature aggregation across time
 model.add(Lambda(lambda x: K.mean(x, axis=1)))
-model.add(Dropout(0.15))
 print model.output_shape
 
 model.add(Flatten())
-model.add(Dropout(0.15))
 print model.output_shape
 
 # Linear classifier
 model.add(Dense(4, activation='softmax'))
-model.add(Dropout(0.015))
 print model.output_shape
 
 model.compile(loss=keras.losses.categorical_crossentropy,
@@ -70,7 +67,8 @@ tensorboard = TensorBoard('./tensorboard_logs', histogram_freq=1)
 
 model.fit(x_train, y_train, batch_size=batch_size,
           epochs=epochs, verbose=1, 
-          callbacks=[tensorboard, checkpoint, early_stopping])
+          validation_split=0.25,
+          callbacks=[checkpoint, early_stopping, tensorboard])
 
 
 print('Evaluation...')
