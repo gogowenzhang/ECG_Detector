@@ -30,7 +30,7 @@ y_test = y[ind_not_selected]
 
 # Hyperparameter
 batch_size = 20
-epochs = 1
+epochs = 100
 
 # Model CNN
 print('Build model...')
@@ -57,18 +57,18 @@ model.compile(loss=keras.losses.categorical_crossentropy,
               metrics=['accuracy'])
 
 print('Train...')
-saved_model_file = './trained_model_{}.h5'.format(MODEL_NAME)
+# saved_model_file = './trained_model_{}.h5'.format(MODEL_NAME)
 # We use early stopping to avoid spending time on overfitting our model
 early_stopping = EarlyStopping(monitor='val_loss', patience=3)
 # save model at checkpoints when loss function improved
-checkpoint = ModelCheckpoint(saved_model_file, monitor='val_loss', save_best_only=True, verbose=1)
+#  checkpoint = ModelCheckpoint(saved_model_file, monitor='val_loss', save_best_only=True, verbose=1)
 # and keep logs for visualisation with TensorBoard
 tensorboard = TensorBoard('./tensorboard_logs', histogram_freq=1)
 
 model.fit(x_train, y_train, batch_size=batch_size,
           epochs=epochs, verbose=1, 
           validation_split=0.25,
-          callbacks=[checkpoint, early_stopping, tensorboard])
+          callbacks=[early_stopping, tensorboard])
 
 
 print('Evaluation...')
