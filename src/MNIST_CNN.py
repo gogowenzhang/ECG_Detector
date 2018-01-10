@@ -17,33 +17,25 @@ with open('y_whole.pkl', 'rb') as f:
 
 # Hyperparameter
 batch_size = 20
-epochs = 10
+epochs = 100
 
 # Model CNN
 print('Build model...')
 
 model = Sequential()
-
-# Convolutional layer
-model = add_conv_blocks(model, 6, 4, initial_input_shape=(140, 33, 1))
-print model.output_shape
-
-# Feature aggregation across time
-model.add(Lambda(lambda x: K.mean(x, axis=1)))
-model.add(Dropout(0.15))
-print model.output_shape
-
+model.add(Conv2D(32, kernel_size=(3, 3),
+                 activation='relu',
+                 input_shape=(140, 33, 1)))
+model.add(Conv2D(64, (3, 3), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Dropout(0.25))
 model.add(Flatten())
-model.add(Dropout(0.15))
-print model.output_shape
-
-# Linear classifier
+model.add(Dense(128, activation='relu'))
+model.add(Dropout(0.5))
 model.add(Dense(4, activation='softmax'))
-model.add(Dropout(0.015))
-print model.output_shape
 
 model.compile(loss=keras.losses.categorical_crossentropy,
-              optimizer=keras.optimizers.Adam(),
+              optimizer = keras.optimizers.Adam(),
               metrics=['accuracy'])
 
 print('Train...')
