@@ -22,15 +22,15 @@ with open('y_whole.pkl', 'rb') as f:
 obs_n = x_s.shape[0]
 train_n = int(x_s.shape[0] * 0.8)
 ind_selected = np.random.choice(obs_n, train_n,replace=False)
-ind_not_selected = [i for i in x_s if i not in ind_selected]
-x_train = np.array([x_s[i] for i in ind_selected])
-x_test = np.array([x_s[i] for i in ind_not_selected])
+ind_not_selected = [i for i in range(obs_n) if i not in ind_selected]
+x_train = x_s[ind_selected]
+x_test = x_s[ind_not_selected]
 y_train = y[ind_selected]
 y_test = y[ind_not_selected]
 
 # Hyperparameter
 batch_size = 20
-epochs = 10
+epochs = 100
 
 # Model CNN
 print('Build model...')
