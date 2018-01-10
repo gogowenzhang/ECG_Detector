@@ -59,17 +59,14 @@ model.compile(loss=keras.losses.categorical_crossentropy,
 print('Train...')
 # saved_model_file = './trained_model_{}.h5'.format(MODEL_NAME)
 # We use early stopping to avoid spending time on overfitting our model
-early_stopping = EarlyStopping(monitor='val_loss', patience=3)
+#  early_stopping = EarlyStopping(monitor='val_loss', patience=3)
 # save model at checkpoints when loss function improved
 #  checkpoint = ModelCheckpoint(saved_model_file, monitor='val_loss', save_best_only=True, verbose=1)
 # and keep logs for visualisation with TensorBoard
-tensorboard = TensorBoard('./tensorboard_logs', histogram_freq=1)
+#  tensorboard = TensorBoard('./tensorboard_logs', histogram_freq=1)
 
 model.fit(x_train, y_train, batch_size=batch_size,
-          epochs=epochs, verbose=1, 
-          validation_split=0.25,
-          callbacks=[early_stopping, tensorboard])
-
+          epochs=epochs, verbose=1)
 
 print('Evaluation...')
 y_predict = model.predict(x_test)
