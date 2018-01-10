@@ -69,9 +69,12 @@ model.fit(x_train, y_train, batch_size=batch_size,
           epochs=epochs, verbose=1)
 
 print('Evaluation...')
-y_predict = model.predict(x_test)
+y_test_predict = model.predict(x_test)
+y_train_predict = model.predict(x_train)
 
-acc = np.mean(y_predict.argmax(axis=1) == y_test.argmax(axis=1))
-print 'accuracy', acc
+acc = np.mean(y_test_predict.argmax(axis=1) == y_test.argmax(axis=1))
+print 'test accuracy', acc
 
-print confusion_matrix(y_test.argmax(axis=1), y_predict.argmax(axis=1))
+print 'train confusion_matrix', confusion_matrix(y_test.argmax(axis=1), y_train_predict.argmax(axis=1))
+
+print 'test confusion_matrix', confusion_matrix(y_test.argmax(axis=1), y_test_predict.argmax(axis=1))
