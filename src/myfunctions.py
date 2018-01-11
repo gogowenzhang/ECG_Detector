@@ -2,6 +2,7 @@ from keras.layers import Conv2D, MaxPooling2D, BatchNormalization, Activation
 from keras.layers import Dropout
 from keras import backend as K
 import scipy
+import numpy as np
 
 
 # Convolutional layers
@@ -26,17 +27,12 @@ def add_conv_blocks(model, block_size, block_count, initial_input_shape):
 
 
 # Metrics
-def f1_score_single(y_true, y_pred):
-    y_true = set(y_true)
-    y_pred = set(y_pred)
-    cross_size = len(y_true & y_pred)
-    if cross_size == 0: return 0.
-    p = 1. * cross_size / len(y_pred)
-    r = 1. * cross_size / len(y_true)
-    return 2 * p * r / (p + r)
-    
 def f1_score(y_true, y_pred):
-    return K.mean([f1_score_single(x, y) for x, y in zip(y_true, y_pred)])
+    result = []
+    for i in range(4):
+        result.append(2. * ((y_true == i) & (y_pred == i)).sum() / ((y_true == i).sum() + (y_pred == i).sum()))
+    return result, np.mean(result)
+
 
 # To spectrogram
 def to_spectrogram(signal):

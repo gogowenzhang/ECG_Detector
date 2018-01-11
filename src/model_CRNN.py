@@ -8,6 +8,7 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint, TensorBoard
 from keras import backend as K
 from sklearn.metrics import confusion_matrix
 from myfunctions import add_conv_blocks
+from myfunctions import f1_score
 
 print('Loading data...')
 with open('x_s_whole.pkl', 'rb') as f:
@@ -27,7 +28,7 @@ y_test = y[ind_not_selected]
 
 # Hyperparameter
 batch_size = 20
-epochs = 10
+epochs = 50s
 
 model = Sequential()
 
@@ -41,7 +42,7 @@ print model.output_shape
 
 # LSTM layer
 model.add(Bidirectional(LSTM(200), merge_mode='ave'))
-model.add(Dropout(0.15))
+model.add(Dropout(0.5))
 print model.output_shape
 
 # Linear classifier
@@ -58,9 +59,13 @@ model.fit(x_train, y_train, batch_size=batch_size,
 
 
 print('Evaluation...')
-y_test_predict = model.predict(x_test)
+y_predict = model.predict(x_test).argmax(axis=1)
+y_test = y_test.argmax(axis=1)
 
-acc = np.mean(y_test_predict.argmax(axis=1) == y_test.argmax(axis=1))
+acc = np.mean(y_predict == y_test)
 print 'accuracy', acc
 
-print confusion_matrix(y_test.argmax(axis=1), y_test_predict.argmax(axis=1))
+f1 = f1_score(y_test, y_predict)
+print 'f1', f1
+
+print confusion_matrix(y_test, y_predict)

@@ -8,6 +8,7 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint, TensorBoard
 from keras import backend as K
 from sklearn.metrics import confusion_matrix
 from myfunctions import add_conv_blocks
+from myfunctions import f1_score
 
 MODEL_NAME = 'cnn3'
 
@@ -30,7 +31,7 @@ y_test = y[ind_not_selected]
 
 # Hyperparameter
 batch_size = 20
-epochs = 100
+epochs = 50
 
 # Model CNN
 print('Build model...')
@@ -69,12 +70,14 @@ model.fit(x_train, y_train, batch_size=batch_size,
           epochs=epochs, verbose=1)
 
 print('Evaluation...')
-y_test_predict = model.predict(x_test)
-y_train_predict = model.predict(x_train)
+y_predict = model.predict(x_test).argmax(axis=1)
+y_test = y_test.argmax(axis=1)
 
-acc = np.mean(y_test_predict.argmax(axis=1) == y_test.argmax(axis=1))
-print 'test accuracy', acc
+acc = np.mean(y_predict == y_test)
+print 'accuracy', acc
 
-print 'train confusion_matrix', confusion_matrix(y_test.argmax(axis=1), y_train_predict.argmax(axis=1))
+f1 = f1_score(y_test, y_predict)
+print 'f1', f1
 
-print 'test confusion_matrix', confusion_matrix(y_test.argmax(axis=1), y_test_predict.argmax(axis=1))
+print confusion_matrix(y_test, y_predict)
+
