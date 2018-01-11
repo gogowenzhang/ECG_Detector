@@ -27,7 +27,7 @@ y_test = y[ind_not_selected]
 
 # Hyperparameter
 batch_size = 20
-epochs = 1
+epochs = 10
 
 model = Sequential()
 
@@ -60,6 +60,6 @@ print('Evaluation...')
 y_test_predict = model.predict(x_test)
 
 acc = np.mean(y_test_predict.argmax(axis=1) == y_test.argmax(axis=1))
-print 'test accuracy', acc
+print 'accuracy', acc
 
-print 'test confusion_matrix', confusion_matrix(y_test.argmax(axis=1), y_test_predict.argmax(axis=1))
+print 'confusion_matrix', confusion_matrix(y_test.argmax(axis=1), y_test_predict.argmax(axis=1))
