@@ -36,7 +36,7 @@ model = add_conv_blocks(model, 6, 4, initial_input_shape=(140, 33, 1))
 print model.output_shape
 
 # Feature aggregation across time
-model.add(Lambda(lambda x: K.mean(x, axis=1)))
+model.add(Reshape((9, 480)))
 print model.output_shape
 
 # LSTM layer
@@ -51,7 +51,6 @@ model.compile(loss=keras.losses.categorical_crossentropy,
               optimizer=keras.optimizers.Adam(),
               metrics=['accuracy'])
 
-
 print('Train...')
 model.fit(x_train, y_train, batch_size=batch_size,
           epochs=epochs, verbose=1)
@@ -59,11 +58,8 @@ model.fit(x_train, y_train, batch_size=batch_size,
 
 print('Evaluation...')
 y_test_predict = model.predict(x_test)
-y_train_predict = model.predict(x_train)
 
 acc = np.mean(y_test_predict.argmax(axis=1) == y_test.argmax(axis=1))
 print 'test accuracy', acc
-
-print 'train confusion_matrix', confusion_matrix(y_test.argmax(axis=1), y_train_predict.argmax(axis=1))
 
 print 'test confusion_matrix', confusion_matrix(y_test.argmax(axis=1), y_test_predict.argmax(axis=1))
