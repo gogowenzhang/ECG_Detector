@@ -41,6 +41,7 @@ print model.output_shape
 
 # LSTM layer
 model.add(Bidirectional(LSTM(200), merge_mode='ave'))
+model.add(Dropout(0.15))
 print model.output_shape
 
 # Linear classifier
@@ -62,4 +63,4 @@ y_test_predict = model.predict(x_test)
 acc = np.mean(y_test_predict.argmax(axis=1) == y_test.argmax(axis=1))
 print 'accuracy', acc
 
-print 'confusion_matrix', confusion_matrix(y_test.argmax(axis=1), y_test_predict.argmax(axis=1))
+print confusion_matrix(y_test.argmax(axis=1), y_test_predict.argmax(axis=1))
