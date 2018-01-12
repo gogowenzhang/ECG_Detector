@@ -29,7 +29,7 @@ y_test = y[ind_not_selected]
 
 # Hyperparameter
 batch_size = 20
-epochs = 5
+epochs = 1
 
 def model_dropout(x):
     model = Sequential()
@@ -63,3 +63,4 @@ for i, x in enumerate([0.015, 0.15, 0.5]):
           epochs=epochs, verbose=1)
     axes[i].plot(history.history['acc'])
 fig.tight_layout()
+plt.show()
