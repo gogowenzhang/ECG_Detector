@@ -61,5 +61,5 @@ fig, axes = plt.subplots(figsize=(10,30), nrows=3, ncols=1)
 for i, x in enumerate([0.015, 0.15, 0.5]):
     history = model_dropout(x).fit(x_train, y_train, batch_size=batch_size,
           epochs=epochs, verbose=1)
-    axes[0][i].plot(history.history['acc'])
+    axes[i].plot(history.history['acc'])
 fig.tight_layout()
