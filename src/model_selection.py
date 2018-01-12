@@ -29,7 +29,7 @@ y_test = y[ind_not_selected]
 
 # Hyperparameter
 batch_size = 20
-epochs = 1
+epochs = 100
 
 def model_dropout(x):
     model = Sequential()
@@ -57,10 +57,13 @@ def model_dropout(x):
 
     return model
 
-fig, axes = plt.subplots(figsize=(10,30), nrows=3, ncols=1)
 for i, x in enumerate([0.015, 0.15, 0.5]):
-    history = model_dropout(x).fit(x_train, y_train, batch_size=batch_size,
+    history = model_dropout(x).fit(x_train[:3], y_train[:3], batch_size=batch_size,
           epochs=epochs, verbose=1)
-    axes[i].plot(history.history['acc'])
-fig.tight_layout()
-plt.show()
+    plt.plot(history.history['acc'], label='Dropout rate: {}'.format(x))
+
+plt.title('model accuracy')
+plt.ylabel('accuracy')
+plt.xlabel('epoch')
+plt.legend()
+plt.savefig('Dropout_Acc.png')
