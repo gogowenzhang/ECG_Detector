@@ -4,7 +4,7 @@ import pickle
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten, Lambda, Reshape
 from keras.layers import Conv2D, MaxPooling2D, BatchNormalization, Activation, Bidirectional, LSTM
-from keras.callbacks import EarlyStopping, ModelCheckpoint, TensorBoard
+from keras.callbacks import EarlyStopping, LearningRateScheduler
 from keras import backend as K
 from sklearn.metrics import confusion_matrix
 from myfunctions import add_conv_blocks
@@ -28,7 +28,7 @@ y_test = y[ind_not_selected]
 
 # Hyperparameter
 batch_size = 20
-epochs = 50s
+epochs = 1
 
 model = Sequential()
 
@@ -42,7 +42,7 @@ print model.output_shape
 
 # LSTM layer
 model.add(Bidirectional(LSTM(200), merge_mode='ave'))
-model.add(Dropout(0.5))
+model.add(Dropout(0.15))
 print model.output_shape
 
 # Linear classifier
@@ -54,6 +54,7 @@ model.compile(loss=keras.losses.categorical_crossentropy,
               metrics=['accuracy'])
 
 print('Train...')
+
 model.fit(x_train, y_train, batch_size=batch_size,
           epochs=epochs, verbose=1)
 
@@ -61,6 +62,8 @@ model.fit(x_train, y_train, batch_size=batch_size,
 print('Evaluation...')
 y_predict = model.predict(x_test).argmax(axis=1)
 y_test = y_test.argmax(axis=1)
+
+print 'model: CRNN, epochs: {}'.format(epochs)
 
 acc = np.mean(y_predict == y_test)
 print 'accuracy', acc

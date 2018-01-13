@@ -73,6 +73,8 @@ print('Evaluation...')
 y_predict = model.predict(x_test).argmax(axis=1)
 y_test = y_test.argmax(axis=1)
 
+print 'model: CNN, epochs: {}'.format(epochs)
+
 acc = np.mean(y_predict == y_test)
 print 'accuracy', acc
 
