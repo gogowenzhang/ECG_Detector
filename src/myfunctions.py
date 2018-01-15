@@ -28,10 +28,17 @@ def add_conv_blocks(model, block_size, block_count, initial_input_shape):
 
 # Metrics
 def f1_score(y_true, y_pred):
+    '''
+    Customized f1 score for Keras model log
+    Input: y_true, y_pred
+    Output: f1 score
+    '''
+    y_predict = y_pred.argmax(axis=1)
+    y_true = y_true.argmax(axis=1)
     result = []
     for i in range(4):
-        result.append(2. * ((y_true == i) & (y_pred == i)).sum() / ((y_true == i).sum() + (y_pred == i).sum()))
-    return result, np.mean(result)
+        result.append(2. * K.sum((y_true == i) & (y_predict == i)) / (K.sum(y_true == i) + K.sum(y_predict == i)))
+    return K.mean(result[:3])
 
 
 # To spectrogram

@@ -1,85 +1,99 @@
 import numpy as np
 import keras
 import pickle
+import sys
+from sklearn.model_selection import train_test_split
+from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten, Lambda, Reshape
-from keras.layers import Conv2D, MaxPooling2D, BatchNormalization, Activation, Bidirectional, LSTM
-from keras.callbacks import EarlyStopping, ModelCheckpoint, TensorBoard
+from keras.layers import Conv2D, MaxPooling2D, BatchNormalization, Activation
 from keras import backend as K
 from sklearn.metrics import confusion_matrix
 from myfunctions import add_conv_blocks
 from myfunctions import f1_score
 
-MODEL_NAME = 'cnn3'
 
-print('Loading data...')
-with open('x_s_whole.pkl', 'rb') as f:
-    x_s = pickle.load(f)
-    
-with open('y_whole.pkl', 'rb') as f:
-    y = pickle.load(f)
+def load_data(filename):
+    '''
+    Load data from pickle file, then split data to training set and test set.
+    Input: pickle filename
+    Output: training data and testing data
+    '''
 
-# Split train and test
-obs_n = x_s.shape[0]
-train_n = int(x_s.shape[0] * 0.8)
-ind_selected = np.random.choice(obs_n, train_n,replace=False)
-ind_not_selected = [i for i in range(obs_n) if i not in ind_selected]
-x_train = x_s[ind_selected]
-x_test = x_s[ind_not_selected]
-y_train = y[ind_selected]
-y_test = y[ind_not_selected]
+    with open(filename, 'rb') as f:
+        x, y = pickle.load(f)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=.2)
+    return x_train, x_test, y_train, y_test
 
-# Hyperparameter
-batch_size = 20
-epochs = 50
 
-# Model CNN
-print('Build model...')
+def generator(x_train, x_test, y_train, y_test):
+    '''
+    Initialize data generator for model training
+    Input: training data and testing data
+    Output: training generator and testing generator
+    '''
 
-model = Sequential()
+    imagegen = ImageDataGenerator()
+    train_generator = imagegen.flow(x_train, y_train, batch_size=20)
+    test_generator = imagegen.flow(x_test, y_test, batch_size=20)
+    return train_generator, test_generator
 
-# Convolutional layer
-model = add_conv_blocks(model, 4, 6, initial_input_shape=(140, 33, 1))
-print model.output_shape
 
-# Feature aggregation across time
-model.add(Lambda(lambda x: K.mean(x, axis=1)))
-print model.output_shape
+def model_fit(train_generator, test_generator, epochs):
+    '''
+    load training data and testing data, compile and train CNN model, return training history
+    Parameters
+    Input: train_generator, test_generator
+    epochs: number of epochs for training
+    Output: training history parameters
 
-model.add(Flatten())
-print model.output_shape
+    '''
+    model = Sequential()
 
-# Linear classifier
-model.add(Dense(4, activation='softmax'))
-print model.output_shape
+    # Convolutional layer
+    model = add_conv_blocks(model, 4, 6, initial_input_shape=(140, 33, 1))
+    print model.output_shape
 
-model.compile(loss=keras.losses.categorical_crossentropy,
-              optimizer=keras.optimizers.Adam(),
-              metrics=['accuracy'])
+    # Feature aggregation across time
+    model.add(Lambda(lambda x: K.mean(x, axis=1)))
+    print model.output_shape
 
-print('Train...')
-# saved_model_file = './trained_model_{}.h5'.format(MODEL_NAME)
-# We use early stopping to avoid spending time on overfitting our model
-#  early_stopping = EarlyStopping(monitor='val_loss', patience=3)
-# save model at checkpoints when loss function improved
-#  checkpoint = ModelCheckpoint(saved_model_file, monitor='val_loss', save_best_only=True, verbose=1)
-# and keep logs for visualisation with TensorBoard
-#  tensorboard = TensorBoard('./tensorboard_logs', histogram_freq=1)
+    model.add(Flatten())
+    print model.output_shape
 
-model.fit(x_train, y_train, batch_size=batch_size,
-          epochs=epochs, verbose=1)
+    # Linear classifier
+    model.add(Dense(4, activation='softmax'))
+    print model.output_shape
 
-print('Evaluation...')
-y_predict = model.predict(x_test).argmax(axis=1)
-y_test = y_test.argmax(axis=1)
+    model.compile(loss=keras.losses.categorical_crossentropy,
+                  optimizer=keras.optimizers.Adam(),
+                  metrics=['accuracy'])
 
-print 'model: CNN, epochs: {}'.format(epochs)
 
-acc = np.mean(y_predict == y_test)
-print 'accuracy', acc
+    model.fit_generator(train_generator,
+                        validation_data=test_generator,
+                        epochs=epochs, verbose=1)
+    return model
 
-f1 = f1_score(y_test, y_predict)
-print 'f1', f1
+if __name__ == '__main__':
+    filename = sys.argv[1]
+    epochs = int(sys.argv[2])
+    x_train, x_test, y_train, y_test = load_data(filename)
+    train_generator, test_generator = generator(x_train, x_test, y_train, y_test)
+    model = model_fit(train_generator, test_generator, epochs)
+    model.save('./model/cnn_model.h5')
 
-print confusion_matrix(y_test, y_predict)
+    print('Evaluation...')
+    y_predict = model.predict_generator(test_generator).argmax(axis=1)
+    y_test = y_test.argmax(axis=1)
+
+    print 'model: CRNN, epochs: {}'.format(epochs)
+
+    acc = np.mean(y_predict == y_test)
+    print 'accuracy', acc
+
+    f1 = f1_score(y_test, y_predict)
+    print 'f1', f1
+
+    print confusion_matrix(y_test, y_predict)
 
