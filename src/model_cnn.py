@@ -10,7 +10,8 @@ from keras.layers import Conv2D, MaxPooling2D, BatchNormalization, Activation
 from keras import backend as K
 from sklearn.metrics import confusion_matrix
 from myfunctions import add_conv_blocks
-from myfunctions import f1_score
+from myfunctions import K_f1_score
+
 
 
 def load_data(filename):
@@ -64,7 +65,7 @@ def model_fit(train_generator, test_generator, epochs):
 
     model.compile(loss=keras.losses.categorical_crossentropy,
                   optimizer=keras.optimizers.Adam(),
-                  metrics=['accuracy', f1_score])
+                  metrics=['accuracy', K_f1_score])
 
 
     model.fit_generator(train_generator,

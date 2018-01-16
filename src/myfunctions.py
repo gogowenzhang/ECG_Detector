@@ -27,7 +27,7 @@ def add_conv_blocks(model, block_size, block_count, initial_input_shape):
 
 
 # Metrics
-def f1_score(y_true, y_pred):
+def K_f1_score(y_true, y_pred):
     '''
     Customized f1 score for Keras model log
     Input: y_true, y_pred
@@ -41,6 +41,9 @@ def f1_score(y_true, y_pred):
         num = K.sum(K.cast(K.equal(y_true, i), dtype='float32') * K.cast(K.equal(y_pred, i), dtype='float32'))
         result.append(2.0 * num / denom)
     return (result[0] + result[1] + result[2]) / 3.0
+
+
+
 
 
 # To spectrogram

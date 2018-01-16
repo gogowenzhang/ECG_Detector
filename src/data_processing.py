@@ -32,9 +32,9 @@ def load_data(signal_filename, label_filename):
     return signals, y
 
 
-def subselect(signals, y):
+def trim_signal(signals, y):
     '''
-    Subselect signals longer or equals to 9000 
+    Trim signal into same length.  
     (EAD shows that length is not assciated with outcome)
     Input: list of signals, y
     Output: numpy array of signals of same length and their labels
@@ -90,7 +90,7 @@ if __name__ == '__main__':
     signal_filename = sys.argv[1]
     label_filename = sys.argv[2]
     signals, y = load_data(signal_filename, label_filename)
-    signals_whole, y_whole = subselect(signals, y)
+    signals_whole, y_whole = trim_signal(signals, y)
     x_s = fouier_transformation(signals_whole)
 
     with open('./data/processed_data.pkl', 'wb') as f:
