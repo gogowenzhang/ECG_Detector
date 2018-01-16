@@ -75,6 +75,7 @@ def model_fit(train_generator, test_generator, epochs):
 if __name__ == '__main__':
     filename = sys.argv[1]
     epochs = int(sys.argv[2])
+    evaluation_result_path = sys.argv[3]
     x_train, x_test, y_train, y_test = load_data(filename)
     train_generator, test_generator = generator(x_train, x_test, y_train, y_test)
     model = model_fit(train_generator, test_generator, epochs)
@@ -84,7 +85,7 @@ if __name__ == '__main__':
     y_predict = model.predict_generator(test_generator).argmax(axis=1)
     y_test = y_test.argmax(axis=1)
 
-    print 'model: CNN, epochs: {}'.format(epochs)
-
-    print confusion_matrix(y_test, y_predict)
+    f = open(evaluation_result_path, 'w')
+    f.write('model: CNN, epochs: {} \n confusion_matrix: \n {}'.format(epochs, confusion_matrix(y_test, y_predict)))
+    f.close()    
 
