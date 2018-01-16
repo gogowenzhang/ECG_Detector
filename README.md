@@ -12,7 +12,7 @@ Neural Network Models implemented with Keras and used Tensorflow backend.
 
 ### Dataset
 Total 8331 single short ECG recordings with 30s length were collected (thanks to AliveCor). These recordings were labeled in four classes: normal(59%) , AF(9%), other(30%), and noise(2%). 
-![ecg](https://github.com/gogowenzhang/ECG_Detector/blob/master/img/ecg.png)
+![ecg](https://github.com/gogowenzhang/ECG_Detector/blob/master/img/ecg_new.png)
 
 ### Data Processing
 Transform 1-D array waveform into 2-D array tensor through fouier transformation. 
