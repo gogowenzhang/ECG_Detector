@@ -64,7 +64,7 @@ def model_fit(train_generator, test_generator, epochs):
 
     model.compile(loss=keras.losses.categorical_crossentropy,
                   optimizer=keras.optimizers.Adam(),
-                  metrics=['accuracy'])
+                  metrics=['accuracy', f1_score])
 
 
     model.fit_generator(train_generator,
