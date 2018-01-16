@@ -6,7 +6,7 @@ There are various types of cardiac arrhymias. Among them, atrial fibrillation (A
 
 This dectector focuses on identifying AF from other kinds of records, namely normal sinus rhythm, other abnormal rhythms and noisy recordings. 
 
-A convolutional nework is a neural network that is specialized for processing a grid of values, such as an image. A recurrent neural network is a neural network that is specialized for processing a sequence of values, such as time series. After fouier transformation, the input is a 2-D image and also time-related. So I tried CNN and RNN (LSTM) separately and jointly in explorating the final model.  
+A convolutional nework is a neural network that is specialized for processing a grid of values, such as an image. A recurrent neural network is a neural network that is specialized for processing a sequence of values, such as time series. After fouier transformation, the waveform turns into spectrogram, which is a 2-D image and also time-related. So I tried CNN and RNN (LSTM) separately and jointly in explorating the final model.  
 
 Neural Network Models implemented with Keras and used Tensorflow backend. 
 
