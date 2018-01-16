@@ -33,12 +33,14 @@ def f1_score(y_true, y_pred):
     Input: y_true, y_pred
     Output: f1 score
     '''
-    y_predict = y_pred.argmax(axis=1)
-    y_true = y_true.argmax(axis=1)
+    y_pred = K.argmax(y_pred, axis=1)
+    y_true = K.argmax(y_true, axis=1)
     result = []
-    for i in range(4):
-        result.append(2. * K.sum((y_true == i) & (y_predict == i)) / (K.sum(y_true == i) + K.sum(y_predict == i)))
-    return K.mean(result[:3])
+    for i in range(3):
+        denom = (K.sum(K.cast(K.equal(y_true, i), dtype='float32')) + K.sum(K.cast(K.equal(y_pred, i), dtype='float32'))) + K.epsilon()
+        num = K.sum(K.cast(K.equal(y_true, i), dtype='float32') * K.cast(K.equal(y_pred, i), dtype='float32'))
+        result.append(2.0 * num / denom)
+    return (result[0] + result[1] + result[2]) / 3.0
 
 
 # To spectrogram

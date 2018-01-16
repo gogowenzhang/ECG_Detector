@@ -78,7 +78,7 @@ if __name__ == '__main__':
     x_train, x_test, y_train, y_test = load_data(filename)
     train_generator, test_generator = generator(x_train, x_test, y_train, y_test)
     model = model_fit(train_generator, test_generator, epochs)
-    model.save('./model/cnn_model.h5')
+    model.save('model/cnn_model.h5')
 
     print('Evaluation...')
     y_predict = model.predict_generator(test_generator).argmax(axis=1)
