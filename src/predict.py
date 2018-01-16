@@ -60,14 +60,10 @@ def predict(model, x):
 if __name__ == '__main__':
     model_file = sys.argv[1]
     signal_file = sys.argv[2]
-    path_to_save_prediction = sys.argv[3]
     model = load_model(model_file)
     signals = load_data(signal_file)
     x = fouier_transformation(signals)
     pred_prob = predict(model, x)
 
     # save prediction to csv
-    pred_prob.tofile(path_to_save_prediction, sep=',', format='%10.2f')
-
-
-
+    pred_prob.tofile('./predictions/pred.csv', sep=',', format='%10.2f')
