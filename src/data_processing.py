@@ -90,8 +90,10 @@ if __name__ == '__main__':
     signal_filename = sys.argv[1]
     label_filename = sys.argv[2]
     signals, y = load_data(signal_filename, label_filename)
+    print len(signals), y.shape
     signals_whole, y_whole = subselect(signals, y)
     x_s = fouier_transformation(signals_whole)
+    print x_s.shape, y_whole.shape
 
     with open('./data/processed_data.pkl', 'wb') as f:
         pickle.dump((x_s, y_whole), f)

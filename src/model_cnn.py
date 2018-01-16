@@ -52,18 +52,15 @@ def model_fit(train_generator, test_generator, epochs):
 
     # Convolutional layer
     model = add_conv_blocks(model, 4, 6, initial_input_shape=(140, 33, 1))
-    print model.output_shape
 
     # Feature aggregation across time
     model.add(Lambda(lambda x: K.mean(x, axis=1)))
-    print model.output_shape
 
     model.add(Flatten())
-    print model.output_shape
 
     # Linear classifier
     model.add(Dense(4, activation='softmax'))
-    print model.output_shape
+
 
     model.compile(loss=keras.losses.categorical_crossentropy,
                   optimizer=keras.optimizers.Adam(),
@@ -87,13 +84,7 @@ if __name__ == '__main__':
     y_predict = model.predict_generator(test_generator).argmax(axis=1)
     y_test = y_test.argmax(axis=1)
 
-    print 'model: CRNN, epochs: {}'.format(epochs)
-
-    acc = np.mean(y_predict == y_test)
-    print 'accuracy', acc
-
-    f1 = f1_score(y_test, y_predict)
-    print 'f1', f1
+    print 'model: CNN, epochs: {}'.format(epochs)
 
     print confusion_matrix(y_test, y_predict)
 
