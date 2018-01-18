@@ -20,6 +20,7 @@ Total 8331 single short ECG recordings with 30s length were collected (thanks to
 ### Data Processing
 Transform 1-D array waveform into 2-D array tensor through fouier transformation. 
 Log transformation and standardization were applied to spectrogram before passed into model. 
+![spec](https://github.com/gogowenzhang/ECG_Detector/blob/master/img/spectrogram.png)
 
 ### Model Architecture
 
