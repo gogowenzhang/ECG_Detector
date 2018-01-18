@@ -6,9 +6,12 @@ There are various types of cardiac arrhymias. Among them, atrial fibrillation (A
 
 This dectector focuses on identifying AF from other kinds of records, namely normal sinus rhythm, other abnormal rhythms and noisy recordings. 
 
-A convolutional nework is a neural network that is specialized for processing a grid of values, such as an image. A recurrent neural network is a neural network that is specialized for processing a sequence of values, such as time series. After fouier transformation, the waveform turns into spectrogram, which is a 2-D image and also time-related. So I tried CNN and RNN (LSTM) separately and jointly in explorating the final model.  
+ECG recordings are usually stored as 1-D waveform, which displays changes in signal's amplitude over time. Through fouier transformation, the waveform transforms into spectrogram, which displays signals by time and by frequency. Amplitude is then represented with colors or brightness. Then we can regard the input spectrogram not as one long vector but as an image. 
 
-Neural Network Models implemented with Keras and used Tensorflow backend. 
+A deep convolutional network, which is specialized for processing an image, were trained to classify the spectrograms. 
+
+Neural Network Models implemented with Keras and used Tensorflow backend. Models were trained on AWS EC2 P2 instance with NVIDIA Tesla® K80 GPUs.  
+
 
 ### Dataset
 Total 8331 single short ECG recordings with 30s length were collected (thanks to AliveCor). These recordings were labeled in four classes: normal(59%) , AF(9%), other(30%), and noise(2%). 
@@ -20,6 +23,11 @@ Log transformation and standardization were applied to spectrogram before passed
 
 ### Model Architecture
 
+Convolutional layers are arranged in blocks. For each block there are four convolutional layers, following each convolutional layer, there are one normalization layer, one relu activation layer and one dropout layer. At the end of each block, one max pooling layer is placed. 
+
+Following the convolutional layers, a customized layer is applied to take average of features across time. Then there is a flatten layer to reduce dimension before passing to classifer layer. 
+
+A standard linear layer with Softmax is placed to compute the class probabilities. 
 
 
 ### Requirements
