@@ -21,6 +21,7 @@ Total 8331 single short ECG recordings with 30s length were collected (thanks to
 ### Data Processing
 Transform 1-D array waveform into 2-D array tensor through fouier transformation. 
 Log transformation and standardization were applied to spectrogram before passed into model. 
+![]()
 ![spec](https://github.com/gogowenzhang/ECG_Detector/blob/master/img/spectrogram.png)
 
 ### Model Architecture
@@ -30,9 +31,8 @@ Convolutional layers are arranged in blocks. For each block there are four convo
 Following the convolutional layers, a customized layer is applied to take average of features across time. Then there is a flatten layer to reduce dimension before passing to classifer layer. 
 
 A standard linear layer with Softmax is placed to compute the class probabilities. 
-![]()
 
-![nn](https://github.com/gogowenzhang/ECG_Detector/blob/master/img/nn.png width="400" height="790")
+<img src="https://github.com/gogowenzhang/ECG_Detector/blob/master/img/nn.png" width="400" height="790">
 
 
 ### Requirements
