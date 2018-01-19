@@ -32,7 +32,7 @@ Following the convolutional layers, a customized layer is applied to take averag
 A standard linear layer with Softmax is placed to compute the class probabilities. 
 ![]()
 
-![nn](https://github.com/gogowenzhang/ECG_Detector/blob/master/img/nn.png)
+![nn](https://github.com/gogowenzhang/ECG_Detector/blob/master/img/nn.png){:height="50%" width="50%"}
 
 
 ### Requirements
