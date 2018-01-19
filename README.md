@@ -30,6 +30,7 @@ Convolutional layers are arranged in blocks. For each block there are four convo
 Following the convolutional layers, a customized layer is applied to take average of features across time. Then there is a flatten layer to reduce dimension before passing to classifer layer. 
 
 A standard linear layer with Softmax is placed to compute the class probabilities. 
+![]()
 
 ![nn](https://github.com/gogowenzhang/ECG_Detector/blob/master/img/nn.png)
 
