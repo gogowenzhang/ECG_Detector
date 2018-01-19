@@ -15,6 +15,7 @@ Neural Network Models implemented with Keras and used Tensorflow backend. Models
 
 ### Dataset
 Total 8331 single short ECG recordings with 30s length were collected (thanks to AliveCor). These recordings were labeled in four classes: normal(59%) , AF(9%), other(30%), and noise(2%). 
+
 ![ecg](https://github.com/gogowenzhang/ECG_Detector/blob/master/img/ecg_new.png)
 
 ### Data Processing
@@ -29,6 +30,8 @@ Convolutional layers are arranged in blocks. For each block there are four convo
 Following the convolutional layers, a customized layer is applied to take average of features across time. Then there is a flatten layer to reduce dimension before passing to classifer layer. 
 
 A standard linear layer with Softmax is placed to compute the class probabilities. 
+
+![nn](https://github.com/gogowenzhang/ECG_Detector/blob/master/img/nn.png)
 
 
 ### Requirements
