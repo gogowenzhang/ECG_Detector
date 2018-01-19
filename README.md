@@ -6,7 +6,7 @@ There are various types of cardiac arrhymias. Among them, atrial fibrillation (A
 
 This dectector focuses on identifying AF from other kinds of records, namely normal sinus rhythm, other abnormal rhythms and noisy recordings. 
 
-ECG recordings are usually stored as 1-D waveform, which displays changes in signal's amplitude over time. Through fouier transformation, the waveform transforms into spectrogram, which displays signals by time and by frequency. Amplitude is then represented with colors or brightness. Then we can regard the input spectrogram not as one long vector but as an image. 
+ECG recordings are usually stored as 1-D waveform, which displays changes in signal's amplitude over time. Through fourier transformation, the waveform transforms into spectrogram, which displays signals by time and by frequency. Amplitude is then represented with colors or brightness. Then we can regard the input spectrogram not as one long vector but as an image. 
 
 A deep convolutional network, which is specialized for processing an image, were trained to classify the spectrograms. 
 
