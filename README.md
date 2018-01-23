@@ -16,13 +16,13 @@ I used the [keras](https://keras.io/) package with Tensorflow as backend to trai
 ### Dataset
 Total 8331 single short ECG recordings with 30s length were collected (thanks to AliveCor). These recordings were labeled in four classes: normal(59%) , AF(9%), other(30%), and noise(2%). 
 
-![ecg](https://github.com/gogowenzhang/ECG_Detector/blob/master/img/ecg_new.png)
+<img src="https://github.com/gogowenzhang/ECG_Detector/blob/master/img/ecg_new.png" width='600' height='600')
 
 ### Data Processing
 Transform 1-D waveform into 2-D spetrogram by Fourier transformation. 
 Log transformation and standardization were applied to spectrograms before passed into model. 
 
-<img src="https://github.com/gogowenzhang/ECG_Detector/blob/master/img/spectrogram.png" width='500' height='100'>
+<img src="https://github.com/gogowenzhang/ECG_Detector/blob/master/img/spectrogram.png" width='600' height='150'>
 
 ### Model Architecture
 
