@@ -34,16 +34,6 @@ A standard linear layer with Softmax is used to compute the class probabilities.
 
 <img src="https://github.com/gogowenzhang/ECG_Detector/blob/master/img/nn.png" width="350" height="500">
 
-
-### Requirements
-* numpy==1.12.0
-* Keras==2.0.1
-* scikit-learn==0.17.1
-* h5py==2.6.0
-* tensorflow==1.0.1
-* wfdb==1.3.9
-
-
 ### How to Run
 Install python requirements:
 ```
