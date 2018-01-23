@@ -22,7 +22,7 @@ Total 8331 single short ECG recordings with 30s length were collected (thanks to
 Transform 1-D waveform into 2-D spetrogram by Fourier transformation. 
 Log transformation and standardization were applied to spectrograms before passed into model. 
 
-<img src="https://github.com/gogowenzhang/ECG_Detector/blob/master/img/spectrogram.png" width='500' height='100')
+<img src="https://github.com/gogowenzhang/ECG_Detector/blob/master/img/spectrogram.png" width='500' height='100'>
 
 ### Model Architecture
 
