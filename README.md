@@ -10,7 +10,7 @@ ECG recordings are usually stored as 1-D waveform, which displays changes in amp
 
 A deep convolutional network, which is specialized for processing an image, were trained to classify the spectrograms. 
 
-I used the [keras](keras.io) package with Tensorflow as backend to train the model on AWS p2.xlarge instance with NVIDIA Tesla® K80 GPUs.  
+I used the [keras](https://keras.io/) package with Tensorflow as backend to train the model on AWS p2.xlarge instance with NVIDIA Tesla® K80 GPUs.  
 
 
 ### Dataset
