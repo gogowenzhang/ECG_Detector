@@ -16,7 +16,7 @@ I used the [keras](https://keras.io/) package with Tensorflow as backend to trai
 ### Dataset
 Total 8331 single short ECG recordings with 30s length were collected (thanks to AliveCor). These recordings were labeled in four classes: normal(59%) , AF(9%), other(30%), and noise(2%). 
 
-<img src="https://github.com/gogowenzhang/ECG_Detector/blob/master/img/ecg_new.png" width='600' height='600'>
+<img src="https://github.com/gogowenzhang/ECG_Detector/blob/master/img/ecg_new.png" width='600' height='500'>
 
 ### Data Processing
 Transform 1-D waveform into 2-D spetrogram by Fourier transformation. 
