@@ -3,6 +3,7 @@ import numpy as np
 import wfdb
 import sys
 from data_processing import fouier_transformation
+from myfunctions import K_f1_score
 
 
 def load_data(record_name):
