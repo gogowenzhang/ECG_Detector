@@ -2,7 +2,7 @@
 
 This is an automatic electrocardiogram (ECG) detector using convolutional neural networks. 
 
-There are various types of cardiac arrhymias. Among them, atrial fibrillation (AF) is most common.  The disease is associated with significant mortality and morbidity through an increasing risk of heart failure, dementia, and stoke. Detection for AF remains problematic, because the signal may be episodic and often episodes have no symptoms. 
+There are various types of cardiac arrhythmias. Among them, atrial fibrillation (AF) is most common.  The disease is associated with significant mortality and morbidity through an increasing risk of heart failure, dementia, and stoke. Detection for AF remains problematic, because the signal may be episodic and often episodes have no symptoms. 
 
 This dectector focuses on identifying AF from other kinds of records, namely normal sinus rhythm, other abnormal rhythms and noisy recordings. 
 
